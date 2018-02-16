@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_Home"
+        android:icon="@drawable/home_icon_black"
+        android:title="@string/home" />
+
+    <item
+        android:id="@+id/navigation_Routines"
+        android:icon="@drawable/routines_icon"
+        android:title="@string/routines" />
+
+    <item
+        android:id="@+id/navigation_Coffees"
+        android:icon="@drawable/coffee_black"
+        android:title="@string/coffees" />
+
+    <item
+        android:id="@+id/navigation_Settings"
+        android:icon="@drawable/settings_black"
+        android:title="@string/settings" />
+
+</menu>

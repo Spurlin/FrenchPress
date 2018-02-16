@@ -1,0 +1,153 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/routines_mainL"
+    android:background="@color/colorLightWhite"
+    tools:context="com.example.j_spu.frenchpress.TabRoutines">
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:fitsSystemWindows="true"
+        tools:context="com.example.owner.frenchpress.MainActivity">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:elevation="2dp"
+            android:id="@+id/top_container"
+            android:background="@color/colorPrimary">
+
+            <TextView
+                android:id="@+id/txt_page"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="16dp"
+                android:layout_centerVertical="true"
+                android:text="@string/routines"
+                android:textColor="@color/colorLightWhite"
+                android:textSize="24dp" />
+
+        </RelativeLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="0dp"
+        android:layout_below="@id/top_container"
+        android:background="@color/colorLightWhite">
+
+        <LinearLayout
+            android:id="@+id/routines_main_LinLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            // header card
+            <android.support.v7.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="20dp"
+                android:elevation="30dp">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="15sp"
+                    android:paddingRight="15sp"
+                    android:paddingTop="15sp"
+                    android:paddingBottom="15sp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:id="@+id/header"
+                        android:scrollbarAlwaysDrawVerticalTrack="true">
+
+                        <TextView
+                            android:id="@+id/routineName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:text="Monday, Wednesday, Friday"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="20dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/timeTitle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:text="Time:"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="14dp"
+                                android:layout_weight=".2"/>
+
+                            <TextView
+                                android:id="@+id/time"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:text="7:30 AM"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="14dp"
+                                android:layout_weight=".2"/>
+
+                            <LinearLayout
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:background="@color/colorPrimaryDark"
+                                android:layout_marginRight="16dp"/>
+
+                            <TextView
+                                android:id="@+id/coffeeTitle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:text="Coffee:"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="14dp"
+                                android:layout_weight=".2"/>
+
+                            <TextView
+                                android:id="@+id/coffeeName"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="Monday Brew"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="14dp"
+                                android:layout_weight=".2"/>
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+    </RelativeLayout>
+</FrameLayout>
