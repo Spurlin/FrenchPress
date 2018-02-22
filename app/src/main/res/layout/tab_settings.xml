@@ -40,42 +40,11 @@
 
         </RelativeLayout>
 
-        <android.support.v4.widget.NestedScrollView
-            android:id="@+id/nestedScrollView"
+        <ListView
+            android:id="@+id/setting_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="0dp"
-            android:layout_below="@id/top_container"
-            android:background="@color/colorLightWhite">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="User's settings go here"
-                    android:textSize="20dp"/>
-
-                <ToggleButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
-                // User settings go here
-
-
-            </RelativeLayout>
-
-        </android.support.v4.widget.NestedScrollView>
+            android:orientation="vertical"
+            android:layout_below="@id/top_container" />
     </RelativeLayout>
 </FrameLayout>

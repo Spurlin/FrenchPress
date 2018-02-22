@@ -6,6 +6,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 
 import java.io.Serializable;
@@ -16,8 +18,8 @@ import java.io.Serializable;
 
 public class TabSettings extends Fragment implements Serializable {
 
-    private PopupWindow popupWindow;
-    private DrawerLayout mainLayout;
+    private static final String LOG_TAG = TabSettings.class.getSimpleName();
+    private SettingsAdapter mAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -26,8 +28,15 @@ public class TabSettings extends Fragment implements Serializable {
         View rootView = inflater.inflate(R.layout.tab_settings, container, false);
         super.onCreate(savedInstanceState);
 
-        // set up the view with the retrieved data
-        setView(rootView, container);
+        // Find a reference to the {@link ListView} in the layout
+        ListView settingListView = (ListView) rootView.findViewById(R.id.setting_list);
+
+        mAdapter = new SettingsAdapter(getActivity(), MainActivity.mainUser.getSettings());
+
+        settingListView.setAdapter(mAdapter);
+
+        Button quick_brew_btn = getActivity().findViewById(R.id.btn_brew);
+        quick_brew_btn.setVisibility(View.INVISIBLE);
 
         return rootView;
     }

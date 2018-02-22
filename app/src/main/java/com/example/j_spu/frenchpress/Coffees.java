@@ -6,26 +6,31 @@ package com.example.j_spu.frenchpress;
 
 public class Coffees {
 
-    private String name;
-    private int temp;
+    private String mName;
+    private int mTemp;
     private Enum<Strength> mStrengthEnum;
-//    private Enum<GrindSize> mGrindSizeEnum;
+    private String mBrewTime;
+    private int mCupsOfWater;
+    private int mScoopsOfCoffee;
 
-    Coffees( String newName, int newTemp, Enum<Strength> newStength,
-             Enum<GrindSize> newGrindSize ) {
-
-        name = newName;
-        temp = newTemp;
+    Coffees( String newName, int newTemp, Enum<Strength> newStength, String newTime, int newCupsOfWater, int newScoopsOfCoffee ) {
+        mName = newName;
+        mTemp = newTemp;
         mStrengthEnum = newStength;
-//        mGrindSizeEnum = newGrindSize;
+        mBrewTime = newTime;
+        mCupsOfWater = newCupsOfWater;
+        mScoopsOfCoffee = newScoopsOfCoffee;
     }
 
-    public String getName() { return name; }
+    public String getName() { return mName; }
 
-    public int getTemp() { return temp; }
+    public int getTemp() { return mTemp; }
 
     public Enum<Strength> getStrength() { return mStrengthEnum; }
 
-//    public Enum<GrindSize> getGrindSize() { return mGrindSizeEnum; }
+    public String getBrewTime() { return mBrewTime; }
 
+    public int getCupsOfWater() { return mCupsOfWater; }
+
+    public int getScoopsOfCoffee() { return mScoopsOfCoffee; }
 }

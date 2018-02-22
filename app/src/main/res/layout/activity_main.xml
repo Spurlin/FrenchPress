@@ -5,19 +5,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-        //android:foreground="@drawable/popupbackground"
+    android:layout_height="match_parent"
+    android:foreground="@drawable/popupbackground">
 
 
-        <FrameLayout
-            android:id="@+id/container"
-            android:layout_width="match_parent"
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="55dp"
+        android:background="@color/colorLightWhite"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toTopOf="@id/navigation"
+        app:layout_constraintTop_toBottomOf="@id/main_layout">
+
+    </FrameLayout>
+
+        <Button
+            android:id="@+id/btn_brew"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-
-        </FrameLayout>
+            android:layout_marginBottom="16dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/navigation"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:padding="8dp"
+            android:text="@string/quick_brew"
+            android:textColor="@color/colorLightWhite"
+            android:textSize="20sp"/>
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/navigation"

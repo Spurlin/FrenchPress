@@ -8,102 +8,47 @@ import java.util.List;
 
 public class Users {
 
-    private String name;
+    private String mName;
     private int deviceCount;
-    private List<Routines> routines;
-    private List<Coffees> coffees;
+    private List<Routines> mRoutines;
+    private List<Coffees> mCoffees;
+    private List<Settings> mSettings;
 
-    public String getName() { return name; }
+    public Users(String newName, List<Settings> settings) {
+        mName = newName;
+        mSettings = settings;
+    }
+
+    public String getName() { return mName; }
 
     public int getDeviceCount() { return deviceCount; }
 
-    public List<Routines> getRoutines() { return routines; }
+    public List<Routines> getRoutines() { return mRoutines; }
 
-    public List<Coffees> getCoffees() { return coffees; }
+    public List<Coffees> getCoffees() { return mCoffees; }
 
-
-    /**
-     * adds a created routine to the users saved routines
-     * iff the routine didn't already exist
-     * @param newRoutine
-     * @return if the routine was added or not
-     */
-    public boolean addRoutine( Routines newRoutine ) {
-
-        if (validateRoutine(newRoutine)) {
-            routines.add(newRoutine);
-            return true;
-        } else {
-            return false;
-        }
+    public void updateRoutines(List<Routines> updatedRoutines) {
+        mRoutines = updatedRoutines;
     }
 
-    /**
-     * adds a created coffee recipe to the users saved coffees
-     * iff the coffee didn't already exist
-     * @param newCoffee
-     * @return if the coffee was added or not
-     */
-    public boolean addCoffee( Coffees newCoffee ) {
-
-        if (validateCoffee(newCoffee)) {
-            coffees.add(newCoffee);
-            return true;
-        } else {
-            return false;
-        }
+    public void updateCoffees(List<Coffees> updatedCoffees) {
+        mCoffees = updatedCoffees;
     }
 
-    public void removeRoutine( Routines deleteRoutine ) { routines.remove(deleteRoutine); }
+    public List<Settings> getSettings() { return mSettings; }
 
-    public void removeCoffee( Coffees deleteCoffee ) { coffees.remove(deleteCoffee); }
+    public void replaceRoutine(Routines updatedRoutine, Routines oldRoutine) {
+        mRoutines.remove(oldRoutine);
+        mRoutines.add(updatedRoutine);
+    }
 
-    /**
-     * checks every routine the user already has saved to
-     * validate that the new routine isn't a duplicate routine
-     * @param newRoutine
-     * @return if the new routine can be added
-     */
-    private boolean validateRoutine( Routines newRoutine ) {
-
-        boolean isValid = true;
-
-        //TODO ADD VALIDATION STEP
-
-        // checks every routine for the user to validate
-        // that the day and time combination is not already
-        // reserved for another routine
-        for ( Routines userRoutine : routines) {
-            for ( Days routineDays : userRoutine.getDays() )
-            if (  newRoutine.getDays().contains(routineDays) &
-                    userRoutine.getTime().equals(newRoutine.getTime())) {
-                return false;
+    public Coffees getCoffeeByName(String name) {
+        for(Coffees targetCoffee : mCoffees) {
+            if (targetCoffee.getName().equals(name)) {
+                return targetCoffee;
             }
         }
-
-        return isValid;
+        return null;
     }
 
-    /**
-     * checks every coffee the user already has saved to
-     * validate that the new coffee isn't a duplicate coffee
-     * @param newCoffee
-     * @return if the new coffee can be added
-     */
-    private boolean validateCoffee( Coffees newCoffee ) {
-
-        boolean isValid = true;
-
-        //TODO ADD VALIDATION STEP
-
-        for ( Coffees userCoffee : coffees) {
-            if ( userCoffee.getName().equals(newCoffee.getName()) ||
-                    ( userCoffee.getTemp() == newCoffee.getTemp() &
-                    userCoffee.getStrength() == newCoffee.getStrength() ) ) {
-                return false;
-            }
-        }
-
-        return isValid;
-    }
 }
