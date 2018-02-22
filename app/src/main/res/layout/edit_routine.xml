@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/main_edit_routine_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorLightWhite"
+    android:elevation="20dp" >
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/edit_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:id="@+id/edit_header_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="24sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textAlignment="center"
+            android:textColor="@color/colorLightWhite"
+            android:text="Edit Routine"/>
+    </android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:layout_below="@id/edit_header">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Days of the Week:"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp">
+
+            <ToggleButton
+                android:id="@+id/day_sunday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:text="S"
+                android:textOff="S"
+                android:textOn="S"
+                android:textColor="@drawable/day_selector"
+                android:background="@drawable/day_selector"/>
+
+            <ToggleButton
+                android:id="@+id/day_monday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:text="M"
+                android:textOff="M"
+                android:textOn="M"
+                android:textColor="@drawable/day_selector"
+                android:background="@drawable/day_selector"/>
+
+            <ToggleButton
+                android:id="@+id/day_tuesday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:text="T"
+                android:textOff="T"
+                android:textOn="T"
+                android:textColor="@drawable/day_selector"
+                android:background="@drawable/day_selector"/>
+
+            <ToggleButton
+                android:id="@+id/day_wednesday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:text="W"
+                android:textOff="W"
+                android:textOn="W"
+                android:textColor="@drawable/day_selector"
+                android:background="@drawable/day_selector"/>
+
+            <ToggleButton
+                android:id="@+id/day_thursday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="24sp"
+                android:textAlignment="center"
+                android:text="Th"
+                android:textOff="Th"
+                android:textOn="Th"
+                android:textColor="@drawable/day_selector"
+                android:background="@drawable/day_selector"/>
+
+            <ToggleButton
+                android:id="@+id/day_friday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:text="F"
+                android:textOff="F"
+                android:textOn="F"
+                android:textColor="@drawable/day_selector"
+                android:background="@drawable/day_selector"/>
+
+            <ToggleButton
+                android:id="@+id/day_saturday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:text="S"
+                android:textOff="S"
+                android:textOn="S"
+                android:textColor="@drawable/day_selector"
+                android:background="@drawable/day_selector"/>
+
+        </LinearLayout>
+
+        <TimePicker
+            android:id="@+id/routine_timePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:timePickerMode="clock" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/coffee_linear_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:textSize="26sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/colorAccent"
+                    android:text="Coffee:"/>
+
+                <Spinner
+                    android:id="@+id/coffee_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:spinnerMode="dialog"
+                    android:textAlignment="center"
+                    android:popupBackground="@android:color/background_light"
+                    android:visibility="visible"
+                    android:textSize="26sp"
+                    android:textColor="@color/colorAccent"
+                    android:text="Morning Joe" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_below="@id/coffee_linear_layout">
+
+                <TextView
+                    android:id="@+id/save_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@android:color/holo_green_light"
+                    android:text="Save"/>
+
+                <TextView
+                    android:id="@+id/delete_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:text="Delete"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/routine_list_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!--Layout for the coffee cards-->
+    <android.support.v7.widget.CardView
+        android:id="@+id/coffee_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="8dp"
+        android:elevation="30dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:orientation="vertical"
+                android:id="@+id/header"
+                android:scrollbarAlwaysDrawVerticalTrack="true">
+
+                <TextView
+                    android:id="@+id/coffeeName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="Monday Brew"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tempTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="Temp:"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="14sp"
+                        android:layout_weight=".125"/>
+
+                    <TextView
+                        android:id="@+id/temp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="8dp"
+                        android:text="90 degrees"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="14sp"
+                        android:layout_weight=".2"/>
+
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorPrimaryDark"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"/>
+
+                    <TextView
+                        android:id="@+id/brewTimeTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="Brew Time:"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="14sp"
+                        android:layout_weight=".2"/>
+
+                    <TextView
+                        android:id="@+id/brewTime"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_gravity="center_vertical"
+                        android:text="2 minutes"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="14sp"
+                        android:layout_weight=".2"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/cupsWaterTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="Water:"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="14sp"
+                        android:layout_weight=".125"/>
+
+                    <TextView
+                        android:id="@+id/cupsWater"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="8dp"
+                        android:text="2 cups"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="14sp"
+                        android:layout_weight=".2"/>
+
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorPrimaryDark"
+                        android:layout_marginRight="12dp"
+                        android:layout_marginLeft="12dp"/>
+
+                    <TextView
+                        android:id="@+id/scoopsCoffeeTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="Scoops:"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="14sp"
+                        android:layout_weight=".2"/>
+
+                    <TextView
+                        android:id="@+id/scoopsCoffee"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_gravity="center_vertical"
+                        android:text="2 tbsp"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="14sp"
+                        android:layout_weight=".2"/>
+                </LinearLayout>
+            </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

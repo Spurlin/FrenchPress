@@ -1,0 +1,32 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:layout_height="?android:listPreferredItemHeight"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:background="@android:color/transparent" >
+
+        <TextView
+            android:id="@+id/setting_txt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="User's settings go here"
+            android:textSize="16sp"
+            android:layout_weight="1"
+            android:maxLines="2"
+            android:ellipsize="end"/>
+
+        <Switch
+            android:id="@+id/setting_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            />
+
+</LinearLayout>
