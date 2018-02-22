@@ -8,4 +8,6 @@
     <color name="colorLightWhite">#F2F2F2</color>
     <color name="unselected_icon_color">#414141</color>
     <color name="green">#4caf50</color>
+    <color name="light_blue">#c2e8ff</color>
+    <color name="blue">#7496c4</color>
 </resources>
