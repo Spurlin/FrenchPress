@@ -36,8 +36,8 @@ public class TabCoffees extends Fragment implements Serializable {
 
         coffeesListView.setAdapter(mAdapter);
 
-        Button quick_brew_btn = getActivity().findViewById(R.id.btn_brew);
-        quick_brew_btn.setVisibility(View.INVISIBLE);
+//        Button quick_brew_btn = getActivity().findViewById(R.id.btn_brew);
+//        quick_brew_btn.setVisibility(View.INVISIBLE);
 
         return rootView;
     }

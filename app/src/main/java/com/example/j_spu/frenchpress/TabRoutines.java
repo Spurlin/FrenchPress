@@ -39,7 +39,6 @@ public class TabRoutines extends Fragment implements Serializable {
         routinesMainLayout.getForeground().setAlpha(0);
 
         ConstraintLayout view = container.getRootView().findViewById(R.id.main_layout);
-        Log.e(LOG_TAG, "--ERROR: " + view);
 
 
 
@@ -47,8 +46,8 @@ public class TabRoutines extends Fragment implements Serializable {
 
         routinesListView.setAdapter(mAdapter);
 
-        Button quick_brew_btn = getActivity().findViewById(R.id.btn_brew);
-        quick_brew_btn.setVisibility(View.GONE);
+//        Button quick_brew_btn = getActivity().findViewById(R.id.btn_brew);
+//        quick_brew_btn.setVisibility(View.GONE);
 
         return rootView;
     }

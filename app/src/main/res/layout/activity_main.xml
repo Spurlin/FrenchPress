@@ -21,19 +21,19 @@
 
     </FrameLayout>
 
-        <Button
-            android:id="@+id/btn_brew"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:background="@color/colorPrimary"
-            app:layout_constraintBottom_toTopOf="@+id/navigation"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:padding="8dp"
-            android:text="@string/quick_brew"
-            android:textColor="@color/colorLightWhite"
-            android:textSize="20sp"/>
+        <!--<Button-->
+            <!--android:id="@+id/btn_brew"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="16dp"-->
+            <!--android:background="@color/colorPrimary"-->
+            <!--app:layout_constraintBottom_toTopOf="@+id/navigation"-->
+            <!--app:layout_constraintLeft_toLeftOf="parent"-->
+            <!--app:layout_constraintRight_toRightOf="parent"-->
+            <!--android:padding="4dp"-->
+            <!--android:text="@string/quick_brew"-->
+            <!--android:textColor="@color/colorLightWhite"-->
+            <!--android:textSize="16sp"/>-->
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/navigation"

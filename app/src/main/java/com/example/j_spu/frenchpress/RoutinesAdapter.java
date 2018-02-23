@@ -2,6 +2,7 @@ package com.example.j_spu.frenchpress;
 
 import android.app.Activity;
 import android.app.TimePickerDialog;
+import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.AnimationDrawable;
@@ -92,9 +93,20 @@ public class RoutinesAdapter extends ArrayAdapter<Routines> {
                 boolean focusable = true;
                 final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
 
+                final TimePicker timePicker = (TimePicker) popupView.findViewById(R.id.routine_timePicker);
+                final TimePicker timePickerSmallScreen = (TimePicker) popupView.findViewById(R.id.routine_timePickerSpinner);
+
                 if (Build.VERSION.SDK_INT >= 21) {
                     popupWindow.setElevation(5.0f);
                 }
+
+                if ( (Math.floor(getContext().getResources().getDisplayMetrics().density) <=
+                        Configuration.SCREENLAYOUT_SIZE_NORMAL) ) {
+                    timePicker.setVisibility(View.GONE);
+                    timePickerSmallScreen.setVisibility(View.VISIBLE);
+                }
+
+                Log.e(LOG_TAG, "--ERROR: " + Math.floor(getContext().getResources().getDisplayMetrics().density));
 
                 popupWindow.setOutsideTouchable(false);
                 popupWindow.showAtLocation(routine_list_layout, Gravity.CENTER, 0, 0);
@@ -103,8 +115,6 @@ public class RoutinesAdapter extends ArrayAdapter<Routines> {
 
                 TextView headerText = (TextView) popupView.findViewById(R.id.edit_header_txt);
                 headerText.setText("Edit Routine");
-
-                final TimePicker timePicker = (TimePicker) popupView.findViewById(R.id.routine_timePicker);
 
                 final Spinner coffee_spinner = (Spinner) popupView.findViewById(R.id.coffee_spinner);
                 final ArrayAdapter<String> coffeeAdapter = new ArrayAdapter<String>(getContext(),

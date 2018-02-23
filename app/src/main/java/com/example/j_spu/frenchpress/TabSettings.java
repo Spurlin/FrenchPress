@@ -35,8 +35,8 @@ public class TabSettings extends Fragment implements Serializable {
 
         settingListView.setAdapter(mAdapter);
 
-        Button quick_brew_btn = getActivity().findViewById(R.id.btn_brew);
-        quick_brew_btn.setVisibility(View.INVISIBLE);
+//        Button quick_brew_btn = getActivity().findViewById(R.id.btn_brew);
+//        quick_brew_btn.setVisibility(View.INVISIBLE);
 
         return rootView;
     }
