@@ -33,15 +33,14 @@ public class TabHome extends Fragment implements Serializable {
         // set up the view with the retrieved data
 //        setView(rootView, container);
 
-//        Button quick_brew_btn = getActivity().findViewById(R.id.btn_brew);
-//        quick_brew_btn.setVisibility(View.VISIBLE);
-//
-//        quick_brew_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(getContext(), "You want a quick brew!", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        Button quick_brew_btn = rootView.findViewById(R.id.btn_brew);
+
+        quick_brew_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "You want a quick brew!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         CardView coffeeInfo = rootView.findViewById(R.id.coffee_levels_card);
         coffeeInfo.setOnClickListener(new View.OnClickListener() {
