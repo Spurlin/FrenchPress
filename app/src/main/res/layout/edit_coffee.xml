@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorLightWhite">
+
+    <!--Header layout-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:elevation="2dp"
+        android:id="@+id/top_container"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:id="@+id/txt_page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:layout_centerVertical="true"
+            android:text="@string/edit_coffee"
+            android:textColor="@color/colorLightWhite"
+            android:textSize="24dp" />
+
+    </RelativeLayout>
+
+    <!--Layout for the coffee name-->
+    <RelativeLayout
+        android:id="@+id/edit_coffee_name_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/top_container"
+        app:layout_constraintBottom_toTopOf="@id/create_brew_water_layout"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/edit_coffee_name_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:textColor="@color/colorAccent"
+                android:textSize="28sp"
+                android:text="Name: "/>
+
+            <EditText
+                android:id="@+id/coffee_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/colorAccent"
+                android:layout_below="@id/quick_brew_temp_title"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:hint="Enter Coffee Name"
+                android:text=""/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!--Layout for the water level-->
+    <RelativeLayout
+        android:id="@+id/create_brew_water_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/edit_coffee_name_layout"
+        app:layout_constraintBottom_toTopOf="@id/create_brew_coffee_layout"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <LinearLayout
+            android:id="@+id/create_brew_water_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
+                android:textSize="28sp"
+                android:text="Water: "/>
+
+            <TextView
+                android:id="@+id/create_brew_water"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
+                android:textSize="28sp"
+                android:text="1 cup"/>
+        </LinearLayout>
+
+        <SeekBar
+            android:id="@+id/water_seek_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/create_brew_water_title"
+            android:layout_marginTop="8dp"
+            android:max="12"
+            android:theme="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:progress="1"
+            android:tickMark="@color/colorLightGrey"
+            android:secondaryProgressTint="@color/light_blue"
+            android:progressTint="@color/light_blue"
+            android:thumbTint="@color/blue" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/water_seek_bar"
+            android:layout_alignParentStart="true"
+            android:text="0"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/water_seek_bar"
+            android:layout_alignParentEnd="true"
+            android:text="12"/>
+
+
+
+
+    </RelativeLayout>
+
+    <!--Layout for the coffee level-->
+    <RelativeLayout
+        android:id="@+id/create_brew_coffee_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/create_brew_water_layout"
+        app:layout_constraintBottom_toTopOf="@id/create_brew_temp_layout"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/create_brew_coffee_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
+                android:textSize="28sp"
+                android:text="Coffee: "/>
+
+            <TextView
+                android:id="@+id/create_brew_coffee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
+                android:textSize="28sp"
+                android:text="1 scoop"/>
+        </LinearLayout>
+
+        <SeekBar
+            android:id="@+id/coffee_seek_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/create_brew_coffee_title"
+            android:layout_marginTop="8dp"
+            android:max="12"
+            android:theme="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:progress="1"
+            android:tickMark="@color/colorLightGrey"
+            android:secondaryProgressTint="@color/colorAccent"
+            android:progressTint="@color/colorAccent"
+            android:thumbTint="@color/colorPrimary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/coffee_seek_bar"
+            android:layout_alignParentStart="true"
+            android:text="0"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/coffee_seek_bar"
+            android:layout_alignParentEnd="true"
+            android:text="12"/>
+
+    </RelativeLayout>
+
+    <!--Layout for the temperature-->
+    <RelativeLayout
+        android:id="@+id/create_brew_temp_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/create_brew_coffee_layout"
+        app:layout_constraintBottom_toTopOf="@id/create_brew_time_layout"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/create_brew_temp_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/colorAccent"
+                android:textSize="28sp"
+                android:text="Temperature: "/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical">
+
+                <ImageButton
+                    android:id="@+id/lower_temp_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_remove_accent_24dp"
+                    android:background="@android:color/transparent"
+                    android:tag="-1"/>
+
+                <TextView
+                    android:id="@+id/brew_temp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorAccent"
+                    android:layout_below="@id/quick_brew_temp_title"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:text="100 degrees"/>
+
+                <ImageButton
+                    android:id="@+id/raise_temp_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight=".5"
+                    android:src="@drawable/ic_add_accent_24dp"
+                    android:background="@android:color/transparent"
+                    android:tag="1"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!--Layout for the brew time-->
+    <RelativeLayout
+        android:id="@+id/create_brew_time_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/create_brew_temp_layout"
+        app:layout_constraintBottom_toTopOf="@id/action_layout"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/create_coffee_time_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/colorAccent"
+                android:layout_alignParentStart="true"
+                android:textSize="28sp"
+                android:text="Brew Time: "/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical"
+                android:layout_alignParentEnd="true" >
+
+                <ImageButton
+                    android:id="@+id/lower_brew_time_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_remove_accent_24dp"
+                    android:background="@android:color/transparent"
+                    android:tag="-1"/>
+
+                <TextView
+                    android:id="@+id/brew_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorAccent"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:text="1:30 min"/>
+
+                <ImageButton
+                    android:id="@+id/raise_brew_time_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight=".5"
+                    android:src="@drawable/ic_add_accent_24dp"
+                    android:background="@android:color/transparent"
+                    android:tag="+1"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <!--Layout for the bottom action buttons-->
+    <LinearLayout
+        android:id="@+id/action_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/save_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@android:color/holo_green_light"
+            android:text="Save"/>
+
+        <TextView
+            android:id="@+id/delete_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@android:color/holo_red_dark"
+            android:text="Delete"/>
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>
