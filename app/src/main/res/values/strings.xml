@@ -6,4 +6,6 @@
     <string name="home">Home</string>
     <string name="next_routine">Next Routine:</string>
     <string name="quick_brew">Quick Brew</string>
+    <string name="edit_coffee">Edit Coffee</string>
+    <string name="create_coffee">Create Coffee</string>
 </resources>

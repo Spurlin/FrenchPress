@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/routines_mainL"
+    android:id="@+id/coffees_mainL"
     android:background="@color/colorLightWhite"
     tools:context="com.example.j_spu.frenchpress.TabCoffees">
 
@@ -47,6 +47,16 @@
             android:layout_below="@id/top_container"
             android:divider="@null"
             android:dividerHeight="0dp"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/add_coffee_FAB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_add_white_24dp"/>
 
     </RelativeLayout>
 </FrameLayout>

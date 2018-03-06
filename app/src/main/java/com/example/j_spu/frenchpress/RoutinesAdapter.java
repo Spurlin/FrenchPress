@@ -100,8 +100,8 @@ public class RoutinesAdapter extends ArrayAdapter<Routines> {
                     popupWindow.setElevation(5.0f);
                 }
 
-                if ( (Math.floor(getContext().getResources().getDisplayMetrics().density) <=
-                        Configuration.SCREENLAYOUT_SIZE_NORMAL) ) {
+                if ( (getContext().getResources().getDisplayMetrics().density <=
+                        3) ) {
                     timePicker.setVisibility(View.GONE);
                     timePickerSmallScreen.setVisibility(View.VISIBLE);
                 }

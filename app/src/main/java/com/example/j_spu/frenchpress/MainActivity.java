@@ -75,16 +75,10 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
         // HARD CODED SETTINGS TO TEST LAYOUT
         List<Settings> testSettings = new ArrayList<>();
-        testSettings.add(new Settings("Setting 1", true));
-        testSettings.add(new Settings("Setting 2", false));
-        testSettings.add(new Settings("Setting 3", true));
-        testSettings.add(new Settings("Setting 4", false));
-        testSettings.add(new Settings("Setting 5", true));
-        testSettings.add(new Settings("Setting 6", false));
-        testSettings.add(new Settings("Setting 7", true));
-        testSettings.add(new Settings("Setting 8", false));
-        testSettings.add(new Settings("Setting 9", true));
-        testSettings.add(new Settings("Setting 10", false));
+        testSettings.add(new Settings("Machine Wifi", true));
+        testSettings.add(new Settings("Snooze Alert", false));
+        testSettings.add(new Settings("Notifications", true));
+
 
         // HARD CODED USER TO TEST LAYOUT AND PROGRAM LOGIC
         mainUser = new Users("John", testSettings);
@@ -116,12 +110,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         mainUser.updateCoffees(myCoffees);
         myCoffees = Utilities.addCoffee(new Coffees("Starbucks Copy-Cat", 110, Strength.Strong, "4", 2, 2), myCoffees);
         mainUser.updateCoffees(myCoffees);
-        myCoffees = Utilities.addCoffee(new Coffees("I am", 100, Strength.Strong, "1", 2, 2), myCoffees);
-        mainUser.updateCoffees(myCoffees);
-        myCoffees = Utilities.addCoffee(new Coffees("running out", 80, Strength.Strong, "3", 3, 3), myCoffees);
-        mainUser.updateCoffees(myCoffees);
-        myCoffees = Utilities.addCoffee(new Coffees("Of Names", 90, Strength.Strong, "2", 1, 2), myCoffees);
-        mainUser.updateCoffees(myCoffees);
 
         // HARD CODDED ROUTINES TO TEST LAYOUT AND LOGIC
         // OF ADDING ROUTINES THAT WOULD CONFLICT EACH OTHER
@@ -145,17 +133,11 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         myRoutines = Utilities.addRoutine(new Routines(monday, "7:30 AM", myCoffees.get(1)), myRoutines); // CAUGHT: error check
         mainUser.updateRoutines(myRoutines);
 
-        myRoutines = Utilities.addRoutine(new Routines(monday, "8:30 AM", myCoffees.get(2)), myRoutines);
-        mainUser.updateRoutines(myRoutines);
-
         // DUPLICATE
         myRoutines = Utilities.addRoutine(new Routines(monday, "9:30 AM", myCoffees.get(1)), myRoutines); // CAUGHT: error check
         mainUser.updateRoutines(myRoutines);
 
         myRoutines = Utilities.addRoutine(new Routines(monday, "12:30 PM", myCoffees.get(0)), myRoutines);
-        mainUser.updateRoutines(myRoutines);
-
-        myRoutines = Utilities.addRoutine(new Routines(monday, "5:30 PM", myCoffees.get(0)), myRoutines);
         mainUser.updateRoutines(myRoutines);
         // END OF HARD CODED TEST CASES
 
