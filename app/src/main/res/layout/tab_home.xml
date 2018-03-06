@@ -1,3 +1,4 @@
+<!--This is the layout for the home tab-->
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -380,6 +381,7 @@
             </LinearLayout>
         </LinearLayout>
 
+        <!--Quick Brew Button-->
         <Button
             android:id="@+id/btn_brew"
             android:layout_width="wrap_content"
@@ -395,6 +397,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
+        <!--Guideline used to keep the header at 20%-->
+        <!--from the top-->
         <android.support.constraint.Guideline
             android:id="@+id/guideline_header"
             android:layout_width="wrap_content"

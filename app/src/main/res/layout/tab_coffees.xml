@@ -1,3 +1,4 @@
+<!--This is the layout for the coffee tab-->
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -18,7 +19,7 @@
         android:fitsSystemWindows="true"
         tools:context="com.example.owner.frenchpress.MainActivity">
 
-
+        <!--Header Layout-->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -39,6 +40,8 @@
 
         </RelativeLayout>
 
+        <!--List of user's coffees-->
+        <!--Created using the CoffeeAdapter class-->
         <ListView
             android:id="@+id/coffee_list"
             android:layout_width="match_parent"
@@ -48,6 +51,7 @@
             android:divider="@null"
             android:dividerHeight="0dp"/>
 
+        <!--Button to create a new coffee-->
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/add_coffee_FAB"
             android:layout_width="wrap_content"

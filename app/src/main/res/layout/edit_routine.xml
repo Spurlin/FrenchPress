@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Layout used for the edit / create routine UI-->
 <RelativeLayout android:id="@+id/main_edit_routine_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,6 +12,7 @@
     android:background="@color/colorLightWhite"
     android:elevation="20dp" >
 
+    <!--Header Layout-->
     <android.support.constraint.ConstraintLayout
         android:id="@+id/edit_header"
         android:layout_width="match_parent"
@@ -30,6 +32,7 @@
             android:text="Edit Routine"/>
     </android.support.constraint.ConstraintLayout>
 
+    <!--Main Content Layout-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,12 +43,14 @@
         android:paddingBottom="16dp"
         android:layout_below="@id/edit_header">
 
+        <!--Days Header-->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:text="Days of the Week:"/>
 
+        <!--Days Layout-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,6 +58,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginBottom="16dp">
 
+            <!--Sunday-->
             <ToggleButton
                 android:id="@+id/day_sunday"
                 android:layout_width="0dp"
@@ -66,6 +72,7 @@
                 android:textColor="@drawable/day_selector"
                 android:background="@drawable/day_selector"/>
 
+            <!--Monday-->
             <ToggleButton
                 android:id="@+id/day_monday"
                 android:layout_width="0dp"
@@ -79,6 +86,7 @@
                 android:textColor="@drawable/day_selector"
                 android:background="@drawable/day_selector"/>
 
+            <!--Tuesday-->
             <ToggleButton
                 android:id="@+id/day_tuesday"
                 android:layout_width="0dp"
@@ -92,6 +100,7 @@
                 android:textColor="@drawable/day_selector"
                 android:background="@drawable/day_selector"/>
 
+            <!--Wednesday-->
             <ToggleButton
                 android:id="@+id/day_wednesday"
                 android:layout_width="0dp"
@@ -105,6 +114,7 @@
                 android:textColor="@drawable/day_selector"
                 android:background="@drawable/day_selector"/>
 
+            <!--Thursday-->
             <ToggleButton
                 android:id="@+id/day_thursday"
                 android:layout_width="0dp"
@@ -118,6 +128,7 @@
                 android:textColor="@drawable/day_selector"
                 android:background="@drawable/day_selector"/>
 
+            <!--Friday-->
             <ToggleButton
                 android:id="@+id/day_friday"
                 android:layout_width="0dp"
@@ -131,6 +142,7 @@
                 android:textColor="@drawable/day_selector"
                 android:background="@drawable/day_selector"/>
 
+            <!--Saturday-->
             <ToggleButton
                 android:id="@+id/day_saturday"
                 android:layout_width="0dp"
@@ -146,12 +158,14 @@
 
         </LinearLayout>
 
+        <!--Time Picker used when display is 3 or larger-->
         <TimePicker
             android:id="@+id/routine_timePicker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:timePickerMode="clock" />
 
+        <!--Time Picker used when display is smaller than 3-->
         <TimePicker
             android:id="@+id/routine_timePickerSpinner"
             android:layout_width="match_parent"
@@ -159,10 +173,12 @@
             android:timePickerMode="spinner"
             android:visibility="gone"/>
 
+        <!--Layout for the coffee spinner and action buttons-->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <!--Layout for the coffees-->
             <LinearLayout
                 android:id="@+id/coffee_linear_layout"
                 android:layout_width="match_parent"
@@ -197,6 +213,7 @@
 
             </LinearLayout>
 
+            <!--Bottom Action Buttons-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
