@@ -8,4 +8,8 @@
     <string name="quick_brew">Quick Brew</string>
     <string name="edit_coffee">Edit Coffee</string>
     <string name="create_coffee">Create Coffee</string>
+    <string name="degrees_F">\u00B0 F</string>
+    <string name="duplicate_Routine_Error">Routine already exists for that day and time.</string>
+    <string name="no_Days_Routine_Error">Please select which days you want this routine to repeat.</string>
+    <string name="no_Coffees_Routine_Error">You need a coffee created before you can set a routine.</string>
 </resources>

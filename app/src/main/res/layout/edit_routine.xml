@@ -10,7 +10,10 @@
     android:layout_marginRight="8dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorLightWhite"
-    android:elevation="20dp" >
+    android:elevation="20dp"
+    android:foreground="@drawable/popupbackground"> // comment this out to view the layout
+    <!--the foreground is used for the greyed background effect-->
+    <!--used when a popup window is active-->>
 
     <!--Header Layout-->
     <android.support.constraint.ConstraintLayout

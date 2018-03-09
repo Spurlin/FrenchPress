@@ -47,65 +47,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tempTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="Temp:"
-                        android:fontFamily="sans-serif-medium"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="14sp"
-                        android:layout_weight=".125"/>
-
-                    <TextView
-                        android:id="@+id/temp"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="8dp"
-                        android:text="90 degrees"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="14sp"
-                        android:layout_weight=".2"/>
-
-                    <!--Used for GUI-->
-                    <LinearLayout
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/colorPrimaryDark"
-                        android:layout_marginLeft="12dp"
-                        android:layout_marginRight="12dp"/>
-
-                    <TextView
-                        android:id="@+id/brewTimeTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="Brew Time:"
-                        android:fontFamily="sans-serif-medium"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="14sp"
-                        android:layout_weight=".2"/>
-
-                    <TextView
-                        android:id="@+id/brewTime"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:layout_gravity="center_vertical"
-                        android:text="2 minutes"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="14sp"
-                        android:layout_weight=".2"/>
-                </LinearLayout>
-
-                <!--Bottom two attributes-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
                         android:id="@+id/cupsWaterTitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -140,7 +81,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="Scoops:"
+                        android:text="Coffee:"
                         android:fontFamily="sans-serif-medium"
                         android:textColor="@color/colorPrimary"
                         android:textSize="14sp"
@@ -153,6 +94,66 @@
                         android:layout_marginLeft="8dp"
                         android:layout_gravity="center_vertical"
                         android:text="2 tbsp"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="14sp"
+                        android:layout_weight=".2"/>
+                </LinearLayout>
+
+                <!--Bottom two attributes-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tempTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="Temp:"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="14sp"
+                        android:layout_weight=".125"/>
+
+                    <TextView
+                        android:id="@+id/temp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="8dp"
+                        android:text="90\u00B0 F"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="14sp"
+                        android:layout_weight=".2"/>
+
+                    <!--Used for GUI-->
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorPrimaryDark"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"/>
+
+                    <TextView
+                        android:id="@+id/brewTimeTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="Brew Time:"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="14sp"
+                        android:layout_weight=".2"/>
+
+                    <TextView
+                        android:id="@+id/brewTime"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_gravity="center_vertical"
+
+                        android:text="2:00 mins"
                         android:textColor="@color/colorPrimary"
                         android:textSize="14sp"
                         android:layout_weight=".2"/>

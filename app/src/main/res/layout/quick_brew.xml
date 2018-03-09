@@ -122,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorAccent"
                 android:textSize="28sp"
-                android:text="1 scoop"/>
+                android:text="1 tbsp"/>
         </LinearLayout>
 
         <SeekBar
@@ -182,7 +182,7 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:layout_gravity="center_vertical">
@@ -202,11 +202,12 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
                     android:textColor="@color/colorAccent"
                     android:layout_below="@id/quick_brew_temp_title"
                     android:textAlignment="center"
                     android:textSize="16sp"
-                    android:text="100 degrees"/>
+                    android:text="100° F"/>
 
                 <ImageButton
                     android:id="@+id/raise_temp_btn"
@@ -250,7 +251,7 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:layout_gravity="center_vertical"
@@ -271,6 +272,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
                     android:textColor="@color/colorAccent"
                     android:textAlignment="center"
                     android:textSize="16sp"
@@ -298,7 +300,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="24dp"
         android:layout_marginTop="24dp"
         app:layout_constraintBottom_toBottomOf="parent">
 

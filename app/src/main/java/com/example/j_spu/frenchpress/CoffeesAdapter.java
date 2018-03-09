@@ -2,14 +2,23 @@ package com.example.j_spu.frenchpress;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.os.Handler;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.CardView;
+import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -27,8 +36,12 @@ import java.util.List;
 public class CoffeesAdapter extends ArrayAdapter<Coffees> {
 
     private static final String LOG_TAG = CoffeesAdapter.class.getSimpleName();
+    private InputMethodManager mgr;
+    private android.support.v4.app.FragmentManager fragmentManager;
 
-    public CoffeesAdapter(Activity context, List<Coffees> coffees) { super(context, 0, coffees); }
+    public CoffeesAdapter(Activity context, List<Coffees> coffees, android.support.v4.app.FragmentManager originalFragManager) { super(context, 0, coffees);
+        fragmentManager = originalFragManager;
+    }
 
     public View getView(int position, View convertView, final ViewGroup parent) {
 
@@ -41,18 +54,25 @@ public class CoffeesAdapter extends ArrayAdapter<Coffees> {
 
         final Coffees currentCoffee = getItem(position);
 
-        //TODO: CREATE COFFE ITEMS AND FILL WITH INFORMATION
+        // Get a reference to the ConnectivityManager to check state of network connectivity
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        // start a transaction that will be used any time the layout needs to be updated
+        final android.support.v4.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        //TODO: CREATE COFFEE ITEMS AND FILL WITH INFORMATION
         // find the TextView in the coffee_item.xml layout with the ID coffeeName
         TextView coffeeName = (TextView) coffeeView.findViewById(R.id.coffeeName);
         coffeeName.setText(currentCoffee.getName());
 
         // find the TextView in the coffee_item.xml layout with the ID temp
-        TextView coffeeTemp = (TextView) coffeeView.findViewById(R.id.temp);
-        coffeeTemp.setText(currentCoffee.getTemp() + " degrees");
+        final TextView coffeeTemp = (TextView) coffeeView.findViewById(R.id.temp);
+        coffeeTemp.setText(currentCoffee.getTemp() + "\u00B0 F");
 
         // find the TextView in the coffee_item.xml layout with the ID brewTime
-        TextView coffeeBrewTime = (TextView) coffeeView.findViewById(R.id.brewTime);
-        coffeeBrewTime.setText(currentCoffee.getBrewTime() + " minutes");
+        final TextView coffeeBrewTime = (TextView) coffeeView.findViewById(R.id.brewTime);
+        coffeeBrewTime.setText(currentCoffee.getBrewTime() + " min");
 
         // find the TextView in the coffee_item.xml layout with the ID cupsWater
         TextView coffeeCupsOfWater = (TextView) coffeeView.findViewById(R.id.cupsWater);
@@ -67,10 +87,8 @@ public class CoffeesAdapter extends ArrayAdapter<Coffees> {
         coffeeCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "You clicked on the " + currentCoffee.getName()
-                + " coffee.", Toast.LENGTH_SHORT).show();
 
-                LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                final LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 final ListView coffee_list_view = (ListView) parent.findViewById(R.id.coffee_list);
                 final View popupView = inflater.from(getContext()).inflate(R.layout.edit_coffee, null);
 
@@ -80,8 +98,285 @@ public class CoffeesAdapter extends ArrayAdapter<Coffees> {
                 final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
                 popupWindow.showAtLocation(coffee_list_view, Gravity.CENTER, 0, 0);
 
+                popupView.getForeground().setAlpha(0);
+
+                final Coffees tempCoffee = new Coffees();
+
                 final EditText mCoffeeName = (EditText) popupView.findViewById(R.id.coffee_name);
                 mCoffeeName.setText(currentCoffee.getName());
+                mCoffeeName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                        if (actionId == EditorInfo.IME_ACTION_DONE) {
+                            if (!TextUtils.isEmpty(mCoffeeName.getText().toString())) {
+                                hideSoftKeyboard(popupView);
+                            } else { Toast.makeText(getContext(), "Please enter a name.", Toast.LENGTH_SHORT).show(); }
+                        }
+                        return true;
+                    }
+                });
+
+
+                // Views for the brew temp
+                final TextView tempText = (TextView) popupView.findViewById(R.id.brew_temp);
+                tempText.setText(currentCoffee.getTemp() + "\u00B0 F");
+                final ImageButton lowerTempBtn = (ImageButton) popupView.findViewById(R.id.lower_temp_btn);
+                lowerTempBtn.setOnTouchListener(new View.OnTouchListener() {
+
+                    private Handler motionHandler;
+                    private int initDelay = 250;
+                    private int delay = 100;
+
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        switch (event.getAction()) {
+                            case MotionEvent.ACTION_DOWN:
+                                if (motionHandler != null) { return true; }
+                                motionHandler = new Handler();
+                                motionHandler.postDelayed(mAction, initDelay);
+//                                initDelay+= 100;
+                                break;
+
+                            case MotionEvent.ACTION_UP:
+                                if (motionHandler == null) {return true; }
+                                motionHandler.removeCallbacks(mAction);
+                                motionHandler = null;
+                                break;
+                        }
+
+                        return false;
+                    }
+
+                    Runnable mAction = new Runnable() {
+
+                        @Override
+                        public void run() {
+
+                            if (Integer.parseInt(tempText.getText().toString().replace("\u00B0 F", "")) == 50) {
+                                Toast.makeText(getContext(), "Can't go lower than 50\u00B0 F", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            tempText.setText(Integer.parseInt(tempText.getText().toString().replace("\u00B0 F", "")) - 5 + "\u00B0 F");
+
+                            motionHandler.postDelayed(this, delay);
+                        }
+                    };
+                });
+                lowerTempBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (Integer.parseInt(tempText.getText().toString().replace("\u00B0 F", "")) == 50) {
+                            Toast.makeText(getContext(), "Can't go lower than 50\u00B0 F", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        tempText.setText(Integer.parseInt(tempText.getText().toString().replace("\u00B0 F", "")) - 5 + "\u00B0 F");
+                    }
+                });
+
+                final ImageButton raiseTempBtn = (ImageButton) popupView.findViewById(R.id.raise_temp_btn);
+                raiseTempBtn.setOnTouchListener(new View.OnTouchListener() {
+
+                    private Handler motionHandler;
+                    private int initDelay = 250;
+                    private int delay = 100;
+
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        switch (event.getAction()) {
+                            case MotionEvent.ACTION_DOWN:
+                                if (motionHandler != null) { return true; }
+                                motionHandler = new Handler();
+                                motionHandler.postDelayed(mAction, initDelay);
+//                                initDelay+= 100;
+                                break;
+
+                            case MotionEvent.ACTION_UP:
+                                if (motionHandler == null) {return true; }
+                                motionHandler.removeCallbacks(mAction);
+                                motionHandler = null;
+                                break;
+                        }
+
+                        return false;
+                    }
+
+                    Runnable mAction = new Runnable() {
+
+                        @Override
+                        public void run() {
+
+                            if (Integer.parseInt(tempText.getText().toString().replace("\u00B0 F", "")) == 185) {
+                                Toast.makeText(getContext(), "Can't go higher than 185\u00B0 F", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            tempText.setText(Integer.parseInt(tempText.getText().toString().replace("\u00B0 F", "")) + 5 + "\u00B0 F");
+
+                            motionHandler.postDelayed(this, delay);
+                        }
+                    };
+                });
+                raiseTempBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (Integer.parseInt(tempText.getText().toString().replace("\u00B0 F", "")) == 185) {
+                            Toast.makeText(getContext(), "Can't go higher than 185\u00B0 F", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        tempText.setText(Integer.parseInt(tempText.getText().toString().replace("\u00B0 F", "")) + 5 + "\u00B0 F");
+                    }
+                });
+
+                // Views for the brew time
+                final TextView timeText = (TextView) popupView.findViewById(R.id.brew_time);
+                timeText.setText(currentCoffee.getBrewTime() + " min");
+                final ImageButton lowerTimeBtn = (ImageButton) popupView.findViewById(R.id.lower_brew_time_btn);
+                lowerTimeBtn.setOnTouchListener(new View.OnTouchListener() {
+
+                    private Handler motionHandler;
+                    private int initDelay = 250;
+                    private int delay = 100;
+
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        switch (event.getAction()) {
+                            case MotionEvent.ACTION_DOWN:
+                                if (motionHandler != null) { return true; }
+                                motionHandler = new Handler();
+                                motionHandler.postDelayed(mAction, initDelay);
+//                                initDelay+= 100;
+                                break;
+
+                            case MotionEvent.ACTION_UP:
+                                if (motionHandler == null) {return true; }
+                                motionHandler.removeCallbacks(mAction);
+                                motionHandler = null;
+                                break;
+                        }
+
+                        return false;
+                    }
+
+                    Runnable mAction = new Runnable() {
+
+                        @Override
+                        public void run() {
+
+                            if (Integer.parseInt(timeText.getText().toString().substring(0, timeText.getText().toString().indexOf(":")).replace(":", "")) == 0) {
+                                if (Integer.parseInt(timeText.getText().toString().substring(timeText.getText().toString().indexOf(":") + 1). replace(" min", "")) == 0) {
+                                    Toast.makeText(getContext(), "Can't go that low", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                                timeText.setText("0:00 min");
+                            } else {
+                                if (Integer.parseInt(timeText.getText().toString().substring(timeText.getText().toString().indexOf(":") + 1). replace(" min", "")) == 0) {
+                                    timeText.setText((Integer.parseInt(timeText.getText().toString().substring(0, timeText.getText().toString().indexOf(":")).replace(":", "")) - 1)
+                                            + timeText.getText().toString().substring(timeText.getText().toString().indexOf(":")).replace(":00", ":30"));
+                                } else {
+                                    timeText.setText(timeText.getText().toString(). replace(":30", ":00"));
+                                }
+                            }
+
+                            motionHandler.postDelayed(this, delay);
+                        }
+                    };
+                });
+                lowerTimeBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (Integer.parseInt(timeText.getText().toString().substring(0, timeText.getText().toString().indexOf(":")).replace(":", "")) == 0) {
+                            if (Integer.parseInt(timeText.getText().toString().substring(timeText.getText().toString().indexOf(":") + 1). replace(" min", "")) == 0) {
+                                Toast.makeText(getContext(), "Can't go that low", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            timeText.setText("0:00 min");
+                        } else {
+                            if (Integer.parseInt(timeText.getText().toString().substring(timeText.getText().toString().indexOf(":") + 1). replace(" min", "")) == 0) {
+                                timeText.setText((Integer.parseInt(timeText.getText().toString().substring(0, timeText.getText().toString().indexOf(":")).replace(":", "")) - 1)
+                                        + timeText.getText().toString().substring(timeText.getText().toString().indexOf(":")).replace(":00", ":30"));
+                            } else {
+                                timeText.setText(timeText.getText().toString(). replace(":30", ":00"));
+                            }
+                        }
+                    }
+                });
+
+                final ImageButton raiseTimeBtn = (ImageButton) popupView.findViewById(R.id.raise_brew_time_btn);
+                raiseTimeBtn.setOnTouchListener(new View.OnTouchListener() {
+
+                    private Handler motionHandler;
+                    private int initDelay = 250;
+                    private int delay = 100;
+
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        switch (event.getAction()) {
+                            case MotionEvent.ACTION_DOWN:
+                                if (motionHandler != null) { return true; }
+                                motionHandler = new Handler();
+                                motionHandler.postDelayed(mAction, initDelay);
+//                                initDelay+= 100;
+                                break;
+
+                            case MotionEvent.ACTION_UP:
+                                if (motionHandler == null) {return true; }
+                                motionHandler.removeCallbacks(mAction);
+                                motionHandler = null;
+                                break;
+                        }
+
+                        return false;
+                    }
+
+                    Runnable mAction = new Runnable() {
+
+                        @Override
+                        public void run() {
+
+                            if (Integer.parseInt(timeText.getText().toString().replace(" min", "")
+                                    .substring(timeText.getText().toString()
+                                            .replace(" min", "").indexOf(":") + 1).replace(" min", "")) == 30) {
+
+                                timeText.setText(
+                                        (Integer.parseInt(timeText.getText().toString().replace(" min", "")
+                                                .substring(0, timeText.getText().toString()
+                                                        .replace(" min", "").indexOf(":")).replace(":", "")) + 1)
+                                                + ":00 min");
+                            } else {
+                                timeText.setText(
+                                        Integer.parseInt(timeText.getText().toString().replace(" min", "")
+                                                .substring(0, timeText.getText().toString()
+                                                        .replace(" min", "").indexOf(":")).replace(":", ""))
+                                                + ":30 min");
+                            }
+
+                            motionHandler.postDelayed(this, delay);
+                        }
+                    };
+                });
+                raiseTimeBtn.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        if (Integer.parseInt(timeText.getText().toString().replace(" min", "")
+                                .substring(timeText.getText().toString()
+                                        .replace(" min", "").indexOf(":") + 1).replace(" min", "")) == 30) {
+
+                            timeText.setText(
+                                    (Integer.parseInt(timeText.getText().toString().replace(" min", "")
+                                            .substring(0, timeText.getText().toString()
+                                                    .replace(" min", "").indexOf(":")).replace(":", "")) + 1)
+                                            + ":00 min");
+                        } else {
+                            timeText.setText(
+                                    Integer.parseInt(timeText.getText().toString().replace(" min", "")
+                                            .substring(0, timeText.getText().toString()
+                                                    .replace(" min", "").indexOf(":")).replace(":", ""))
+                                            + ":30 min");
+                        }
+                    }
+                });
+
+
                 final SeekBar mWaterSeekBar = (SeekBar) popupView.findViewById(R.id.water_seek_bar);
                 final SeekBar mCoffeeSeekBar = (SeekBar) popupView.findViewById(R.id.coffee_seek_bar);
                 final TextView waterText = (TextView) popupView.findViewById(R.id.create_brew_water);
@@ -134,8 +429,8 @@ public class CoffeesAdapter extends ArrayAdapter<Coffees> {
                 });
 
                 coffeeText.setText( (currentCoffee.getScoopsOfCoffee() == 1 ?
-                        currentCoffee.getScoopsOfCoffee() + " scoop" :
-                        currentCoffee.getScoopsOfCoffee() + " scoops") );
+                        currentCoffee.getScoopsOfCoffee() + " tbsp" :
+                        currentCoffee.getScoopsOfCoffee() + "tbsp") );
                 mCoffeeSeekBar.setProgress(currentCoffee.getScoopsOfCoffee());
                 mCoffeeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
@@ -143,9 +438,9 @@ public class CoffeesAdapter extends ArrayAdapter<Coffees> {
                         String currentProgress = String.valueOf(progress);
 
                         if (progress > 1) {
-                            coffeeText.setText(currentProgress + " scoops");
+                            coffeeText.setText(currentProgress + " tbsp");
                         } else {
-                            coffeeText.setText(currentProgress + " scoop");
+                            coffeeText.setText(currentProgress + " tbsp");
                         }
                     }
 
@@ -165,7 +460,29 @@ public class CoffeesAdapter extends ArrayAdapter<Coffees> {
                 brewText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getContext(), "Coffee Saved", Toast.LENGTH_SHORT).show();
+
+                        tempCoffee.setName(mCoffeeName.getText().toString());
+                        tempCoffee.setCupsOfWater(mWaterSeekBar.getProgress());
+                        tempCoffee.setScoopsOfCoffee(mCoffeeSeekBar.getProgress());
+                        tempCoffee.setTemp(Integer.parseInt(tempText.getText().toString().replace("\u00B0 F", "")));
+                        tempCoffee.setBrewTime(timeText.getText().toString().replace(" min", ""));
+
+                        if ( !Utilities.validateEditCoffee(tempCoffee, MainActivity.mainUser.getCoffees(), currentCoffee) ) {
+                            Toast.makeText(getContext(), "Coffee already exists.", Toast.LENGTH_SHORT).show();
+                            return;
+                        } else if ( TextUtils.isEmpty(tempCoffee.getName())) {
+                            Toast.makeText(getContext(), "Please enter a name.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        currentCoffee.setName(tempCoffee.getName());
+                        currentCoffee.setCupsOfWater(tempCoffee.getCupsOfWater());
+                        currentCoffee.setScoopsOfCoffee(tempCoffee.getScoopsOfCoffee());
+                        currentCoffee.setTemp(tempCoffee.getTemp());
+                        currentCoffee.setBrewTime(tempCoffee.getBrewTime());
+
+                        Toast.makeText(getContext(), mCoffeeName.getText().toString() + " Coffee Saved", Toast.LENGTH_SHORT).show();
+                        transaction.replace(R.id.container, new TabCoffees()).commit();
                         popupWindow.dismiss();
                     }
                 });
@@ -175,8 +492,55 @@ public class CoffeesAdapter extends ArrayAdapter<Coffees> {
                 cancelText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getContext(), "Deleted", Toast.LENGTH_SHORT).show();
-                        popupWindow.dismiss();
+
+                        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                        final ListView coffee_list_view = (ListView) parent.findViewById(R.id.coffee_list);
+                        final View newPopupView = inflater.from(getContext()).inflate(R.layout.delete_confirmation, null);
+
+                        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                        boolean focusable = true;
+                        final PopupWindow newPopupWindow = new PopupWindow(newPopupView, width, height, focusable);
+                        newPopupWindow.showAtLocation(coffee_list_view, Gravity.CENTER, 0, 0);
+
+                        TextView deleteMessage = (TextView) newPopupView.findViewById(R.id.delete_message);
+                        deleteMessage.setText(deleteMessage.getText().toString().replace("[item]", " coffee"));
+
+                        popupView.getForeground().setAlpha(220);
+
+                        TextView deleteAction = (TextView) newPopupView.findViewById(R.id.delete_action);
+                        deleteAction.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Toast.makeText(getContext(), "Deleted", Toast.LENGTH_SHORT).show();
+                                Utilities.removeCoffee(currentCoffee, MainActivity.mainUser.getCoffees());
+                                Utilities.defaultRoutinesUsedByCoffee(currentCoffee, MainActivity.mainUser.getRoutines());
+
+                                transaction.replace(R.id.container, new TabCoffees()).commit();
+                                newPopupWindow.dismiss();
+                                popupWindow.dismiss();
+                            }
+                        });
+
+                        TextView cancelAction = (TextView) newPopupView.findViewById(R.id.cancel_action);
+                        cancelAction.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                newPopupWindow.dismiss();
+                                popupView.getForeground().setAlpha(0);
+                            }
+                        });
+
+                        // handles when the pop up window is closed via touch outside of window or
+                        // via back button
+                        newPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                            @Override
+                            public void onDismiss() {
+                                popupView.getForeground().setAlpha(0);
+                                newPopupWindow.dismiss();
+                            }
+                        });
+
                     }
                 });
             }
@@ -184,5 +548,11 @@ public class CoffeesAdapter extends ArrayAdapter<Coffees> {
 
 
         return coffeeView;
+    }
+
+    private void hideSoftKeyboard(View view) {
+        mgr = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        mgr.hideSoftInputFromWindow(
+                view.getWindowToken(), 0 );
     }
 }

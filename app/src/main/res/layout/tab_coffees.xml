@@ -45,11 +45,44 @@
         <ListView
             android:id="@+id/coffee_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_below="@id/top_container"
+            android:paddingBottom="76dp"
+            android:clipToPadding="false"
+            android:scrollbarStyle="outsideOverlay"
             android:divider="@null"
             android:dividerHeight="0dp"/>
+
+        <!--Layout used for the empty view-->
+        <LinearLayout
+            android:id="@+id/empty_view_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
+            android:visibility="gone">
+
+        <!--Layout for the empty view image-->
+        <ImageView
+            android:id="@+id/empty_view_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/empty_view"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_frown"/>
+
+        <!--Layout for the empty view text-->
+        <TextView
+            android:id="@+id/empty_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp"
+            android:textAlignment="center"
+            android:text="You don't have any coffees created.\nTry clicking the plus button to create one!"/>
+        </LinearLayout>
 
         <!--Button to create a new coffee-->
         <android.support.design.widget.FloatingActionButton
@@ -58,8 +91,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
             android:src="@drawable/ic_add_white_24dp"/>
 
     </RelativeLayout>

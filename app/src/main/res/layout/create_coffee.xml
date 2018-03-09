@@ -63,6 +63,8 @@
                 android:textAlignment="center"
                 android:textSize="16sp"
                 android:hint="Enter Coffee Name"
+                android:maxLines="1"
+                android:inputType="text"
                 android:text=""/>
         </LinearLayout>
     </RelativeLayout>
@@ -161,7 +163,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorAccent"
                 android:textSize="28sp"
-                android:text="1 scoop"/>
+                android:text="1 tbsp"/>
         </LinearLayout>
 
         <SeekBar
@@ -245,7 +247,7 @@
                     android:layout_below="@id/quick_brew_temp_title"
                     android:textAlignment="center"
                     android:textSize="16sp"
-                    android:text="100 degrees"/>
+                    android:text="100\u00B0 F"/>
 
                 <ImageButton
                     android:id="@+id/raise_temp_btn"
@@ -337,7 +339,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="24dp"
         android:layout_marginTop="24dp"
         app:layout_constraintBottom_toBottomOf="parent">
 

@@ -1,6 +1,7 @@
 package com.example.j_spu.frenchpress;
 
 import android.provider.AlarmClock;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,17 +12,20 @@ import java.util.List;
 
 public class Routines {
 
+    private final String LOG_TAG = Routines.class.getSimpleName();
     private String mName;
     private List<Days> mDays;
     //TODO TIME VARIABLE
     private String mTime;
     private Coffees mCoffee;
 
+    Routines(){}
+
     Routines( List<Days> newDays, String newTime, Coffees newCoffee) {
         mDays = newDays;
         mTime = newTime;
         mCoffee = newCoffee;
-        mName = createName();
+        generateName();
     }
 
     public List<Days> getDays() { return mDays; }
@@ -32,15 +36,39 @@ public class Routines {
 
     public String getName() { return mName; }
 
-    private String createName() {
+    public void generateName() {
+
+        List<Days> weekDays = new ArrayList<>();
+        weekDays.add(Days.Monday);
+        weekDays.add(Days.Tuesday);
+        weekDays.add(Days.Wednesday);
+        weekDays.add(Days.Thursday);
+        weekDays.add(Days.Friday);
+
+        List<Days> weekendDays = new ArrayList<>();
+        weekendDays.add(Days.Saturday);
+        weekendDays.add(Days.Sunday);
+
+        if (mDays.size() == 7) {
+            mName = "Every Day";
+            return;
+        } else if (!(mDays.contains(Days.Sunday)) &
+                    !(mDays.contains(Days.Saturday)) &
+                        mDays.containsAll(weekDays)) {
+            mName = "Week Days";
+            return;
+        }
+
         StringBuilder buildName = new StringBuilder();
+        String tempName;
 
         for ( Days currentDay : mDays ) {
             buildName.append(currentDay.toString() + ", ");
         }
-        mName = buildName.toString();
-        mName = mName.substring(0, mName.lastIndexOf(','));
-        return mName;
+        tempName = buildName.toString();
+        tempName = tempName.substring(0, tempName.lastIndexOf(','));
+
+        mName = tempName;
     }
 
     public void updateTime(String newTime) {
@@ -51,7 +79,7 @@ public class Routines {
         mDays = newDays;
     }
 
-    public void updateCoffee(Coffees newCofee) {
-        mCoffee = newCofee;
+    public void updateCoffee(Coffees newCoffee) {
+        mCoffee = newCoffee;
     }
 }

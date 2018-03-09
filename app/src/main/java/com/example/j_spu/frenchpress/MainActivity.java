@@ -102,13 +102,13 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         // HARD CODED COFFEE RECIPES TO TEST LAYOUT AND LOGIC
         // OF ADDING DUPLICATE COFFEES
         List<Coffees> myCoffees = new ArrayList<>();
-        myCoffees = Utilities.addCoffee(new Coffees("Morning Joe", 90, Strength.Strong, "2",2, 1), myCoffees);
+        myCoffees = Utilities.addCoffee(new Coffees("Morning Joe", 90, "2:00",2, 1), myCoffees);
         mainUser.updateCoffees(myCoffees);
-        myCoffees = Utilities.addCoffee(new Coffees("Morning Joe", 90, Strength.Strong, "2", 2, 1), myCoffees);
+        myCoffees = Utilities.addCoffee(new Coffees("Morning Joe", 90, "2:00", 2, 1), myCoffees);
         mainUser.updateCoffees(myCoffees);
-        myCoffees = Utilities.addCoffee(new Coffees("The Best", 100, Strength.Strong, "4", 1, 1), myCoffees);
+        myCoffees = Utilities.addCoffee(new Coffees("The Best", 100, "4:30", 1, 1), myCoffees);
         mainUser.updateCoffees(myCoffees);
-        myCoffees = Utilities.addCoffee(new Coffees("Starbucks Copy-Cat", 110, Strength.Strong, "4", 2, 2), myCoffees);
+        myCoffees = Utilities.addCoffee(new Coffees("Starbucks Copy-Cat", 110, "4:00", 2, 2), myCoffees);
         mainUser.updateCoffees(myCoffees);
 
         // HARD CODDED ROUTINES TO TEST LAYOUT AND LOGIC
@@ -159,8 +159,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
             android.support.v4.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
-
+            transaction.setCustomAnimations(R.anim.floating_text_anim, R.anim.floating_text_fade_out_anim);
 
             switch (item.getItemId()) {
                 case R.id.navigation_Home:
@@ -181,9 +180,10 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     };
 
     // override the back button action to not do anything
-    @Override
-    public void onBackPressed() {
-    }
+//    @Override
+//    public void onBackPressed() {
+//
+//    }
 
 }
 

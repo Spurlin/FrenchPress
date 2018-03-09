@@ -8,15 +8,15 @@ public class Coffees {
 
     private String mName;
     private int mTemp;
-    private Enum<Strength> mStrengthEnum;
     private String mBrewTime;
     private int mCupsOfWater;
     private int mScoopsOfCoffee;
 
-    Coffees( String newName, int newTemp, Enum<Strength> newStength, String newTime, int newCupsOfWater, int newScoopsOfCoffee ) {
+    Coffees() {}
+
+    Coffees( String newName, int newTemp, String newTime, int newCupsOfWater, int newScoopsOfCoffee ) {
         mName = newName;
         mTemp = newTemp;
-        mStrengthEnum = newStength;
         mBrewTime = newTime;
         mCupsOfWater = newCupsOfWater;
         mScoopsOfCoffee = newScoopsOfCoffee;
@@ -24,13 +24,21 @@ public class Coffees {
 
     public String getName() { return mName; }
 
+    public void setName(String name) { mName = name; }
+
     public int getTemp() { return mTemp; }
 
-    public Enum<Strength> getStrength() { return mStrengthEnum; }
+    public void setTemp(int temp) { mTemp = temp; }
 
     public String getBrewTime() { return mBrewTime; }
 
+    public void setBrewTime(String brewTime) { mBrewTime = brewTime; }
+
     public int getCupsOfWater() { return mCupsOfWater; }
 
+    public void setCupsOfWater(int cupsOfWater) { mCupsOfWater = cupsOfWater; }
+
     public int getScoopsOfCoffee() { return mScoopsOfCoffee; }
+
+    public void setScoopsOfCoffee(int scoopsOfCoffee) { mScoopsOfCoffee = scoopsOfCoffee; }
 }
