@@ -1,17 +1,25 @@
 #include <Servo.h>
+#include <HX711.h>
+
 //setting up pins and servos
 Servo mServo;
 const int servoPin = 11;
 const int temPin = A0;
 const int groundsPin = A1;
-
-
+const int dout = 4;
+const int clk = 2;
+const int ledPin = 13;
+float calibration_factor = -96650;
+HX711 scale(dout,clk);
 void setup() {
   //Set the same baudrate as on RPi
   Serial.begin(9600);
   //connect the servo and set default postion to 0
   mServo.attach(servoPin);
   mServo.write(0);
+  pinMode(ledPin,OUTPUT);
+  scale.set_scale(calibration_factor);
+  scale.tare();
   
 }
 //used to read the light value for the grounds
@@ -37,6 +45,19 @@ void servo(){
   delay(500);
   mServo.write(0);
 }
+
+void loadcell(){
+  Serial.print(scale.get_units(),2);
+}
+
+void ledOn(){
+  digitalWrite(ledPin,HIGH);
+}
+
+void ledOff(){
+  digitalWrite(ledPin, LOW);
+}
+
 void loop() {
   //hold while there is nothing on serial
  
@@ -53,6 +74,15 @@ void loop() {
         break;
     case 3:
         servo();
+        break;
+    case 4:
+        loadcell();
+        break;
+    case 5:
+        ledOn();
+        break;
+    case 6:
+        ledOff();
         break;
         
         
