@@ -1,7 +1,11 @@
 package com.example.j_spu.frenchpress;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,9 +13,11 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.NestedScrollView;
@@ -28,6 +34,14 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.nearby.Nearby;
+import com.google.android.gms.nearby.connection.DiscoveredEndpointInfo;
+import com.google.android.gms.nearby.connection.DiscoveryOptions;
+import com.google.android.gms.nearby.connection.EndpointDiscoveryCallback;
+import com.google.android.gms.nearby.connection.Strategy;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -59,11 +73,26 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     private TextView mTextView;
     public static Users mainUser;
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
+    private static final int PERMISSION_REQUEST_LOCATION = 0;
+    private static boolean nearbyConnCompleted;
+    private android.support.v4.app.FragmentTransaction transaction;
+    private BottomNavigationView navigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // No explanation needed; request the permission
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                    PERMISSION_REQUEST_LOCATION);
+        }
 
         // get intent
         Intent intent = getIntent();
@@ -75,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
         // HARD CODED SETTINGS TO TEST LAYOUT
         List<Settings> testSettings = new ArrayList<>();
+        testSettings.add(new Settings("Connect to a machine", true));
         testSettings.add(new Settings("Machine Wifi", true));
         testSettings.add(new Settings("Snooze Alert", false));
         testSettings.add(new Settings("Notifications", true));
@@ -142,14 +172,16 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         // END OF HARD CODED TEST CASES
 
         // set up the bottom navigation
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         // start a transaction with the home tab first
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
-        transaction.replace(R.id.container, new TabHome()).commit();
+        transaction.replace(R.id.container, new TabHome()).addToBackStack("ROOT_BACK_STACK").commit();
+
+        intent.putExtra("bundle", savedInstanceState);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -158,11 +190,12 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-            android.support.v4.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction = fragmentManager.beginTransaction();
             transaction.setCustomAnimations(R.anim.floating_text_anim, R.anim.floating_text_fade_out_anim);
 
             switch (item.getItemId()) {
                 case R.id.navigation_Home:
+                    Log.i(LOG_TAG, "ID: " + item.getItemId());
                     transaction.replace(R.id.container, new TabHome()).commit();
                     return true;
                 case R.id.navigation_Routines:
@@ -179,11 +212,10 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         }
     };
 
-    // override the back button action to not do anything
-//    @Override
-//    public void onBackPressed() {
-//
-//    }
-
+//     override the back button action to not do anything
+    @Override
+    public void onBackPressed() {
+        navigation.setSelectedItemId(R.id.navigation_Home);
+    }
 }
 

@@ -41,13 +41,40 @@
 
         </RelativeLayout>
 
-        <!--List of settings-->
-        <!--Created using the SettingsAdapter class-->
-        <ListView
-            android:id="@+id/setting_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_below="@id/top_container" />
+        <!--<LinearLayout-->
+            <!--android:id="@+id/inner_content"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_below="@id/top_container"-->
+            <!--android:orientation="vertical">-->
+           <!---->
+            <!--&lt;!&ndash;Connections Settings Header&ndash;&gt;-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingTop="16dp"-->
+                <!--android:paddingStart="16dp"-->
+                <!--android:textSize="18sp"-->
+                <!--android:fontFamily="sans-serif-medium"-->
+                <!--android:textColor="@color/colorDarkGrey"-->
+                <!--android:text="Connections"/>-->
+            <!---->
+            <!--&lt;!&ndash;Gray line below header&ndash;&gt;-->
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="2dp"-->
+                <!--android:layout_marginStart="16dp"-->
+                <!--android:layout_marginEnd="16dp"-->
+                <!--android:background="@color/colorDarkGrey"/>-->
+
+            <!--List of settings-->
+            <!--Created using the SettingsAdapter class-->
+            <ListView
+                android:id="@+id/setting_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_below="@id/top_container" />
+        <!--</LinearLayout>-->
     </RelativeLayout>
 </FrameLayout>

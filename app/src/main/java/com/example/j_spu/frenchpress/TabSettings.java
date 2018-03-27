@@ -31,20 +31,10 @@ public class TabSettings extends Fragment implements Serializable {
         // Find a reference to the {@link ListView} in the layout
         ListView settingListView = (ListView) rootView.findViewById(R.id.setting_list);
 
-        mAdapter = new SettingsAdapter(getActivity(), MainActivity.mainUser.getSettings());
+        mAdapter = new SettingsAdapter(getActivity(), MainActivity.mainUser.getSettings(), getFragmentManager());
 
         settingListView.setAdapter(mAdapter);
 
-//        Button quick_brew_btn = getActivity().findViewById(R.id.btn_brew);
-//        quick_brew_btn.setVisibility(View.INVISIBLE);
-
         return rootView;
-    }
-
-    // this method creates the proper view based on the users
-    // data that has been stored in the users class.
-    // Sets up for all routines the user currently has
-    public void setView(View rootView, ViewGroup container) {
-        // TODO: CREATE CARDS REAL TIME
     }
 }

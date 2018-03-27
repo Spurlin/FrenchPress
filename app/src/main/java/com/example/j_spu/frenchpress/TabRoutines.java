@@ -151,13 +151,12 @@ public class TabRoutines extends Fragment implements Serializable {
                 } else { coffee_spinner.setEnabled(false); }
 
 
-                // User clicks save
+                // User clicks create
                 TextView saveText = (TextView) popupView.findViewById(R.id.save_text);
                 saveText.setText("Create");
                 saveText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //TODO: FIX TIME PICKER
                         Routines newRoutine = new Routines();
 
                         int hour = mTimePicker.getHour();

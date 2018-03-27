@@ -181,7 +181,7 @@ public class TabHome extends Fragment implements Serializable {
                         public void run() {
 
                             if (Integer.parseInt(tempText.getText().toString().replace("\u00B0 F", "")) == 185) {
-                                Toast.makeText(getContext(), "Can't go higher than 180\u00B0 F", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Can't go higher than 185\u00B0 F", Toast.LENGTH_SHORT).show();
                                 return;
                             }
                             tempText.setText(Integer.parseInt(tempText.getText().toString().replace("\u00B0 F", "")) + 5 + "\u00B0 F");

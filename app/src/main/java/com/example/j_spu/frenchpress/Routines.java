@@ -18,14 +18,16 @@ public class Routines {
     //TODO TIME VARIABLE
     private String mTime;
     private Coffees mCoffee;
+    private boolean state;
 
-    Routines(){}
+    Routines(){ state = true; }
 
     Routines( List<Days> newDays, String newTime, Coffees newCoffee) {
         mDays = newDays;
         mTime = newTime;
         mCoffee = newCoffee;
         generateName();
+        state = true;
     }
 
     public List<Days> getDays() { return mDays; }
@@ -35,6 +37,8 @@ public class Routines {
     public Coffees getCoffee() { return mCoffee; }
 
     public String getName() { return mName; }
+
+    public boolean getState() { return state; }
 
     public void generateName() {
 
@@ -82,4 +86,6 @@ public class Routines {
     public void updateCoffee(Coffees newCoffee) {
         mCoffee = newCoffee;
     }
+
+    public void updateState() { state = !state; }
 }

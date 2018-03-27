@@ -31,4 +31,6 @@ dependencies {
     compile 'com.android.support:cardview-v7:26.+'
     compile 'com.android.support:recyclerview-v7:26.+'
     compile 'com.github.lzyzsd:circleprogress:1.2.1'
+    compile 'com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1'
+    compile 'com.google.android.gms:play-services-nearby:11.8.0'
 }

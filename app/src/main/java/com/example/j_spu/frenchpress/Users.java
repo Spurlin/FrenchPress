@@ -13,6 +13,7 @@ public class Users {
     private List<Routines> mRoutines;
     private List<Coffees> mCoffees;
     private List<Settings> mSettings;
+    private List<Machines> mMachines;
 
     public Users(String newName, List<Settings> settings) {
         mName = newName;
@@ -26,6 +27,12 @@ public class Users {
     public List<Routines> getRoutines() { return mRoutines; }
 
     public List<Coffees> getCoffees() { return mCoffees; }
+
+    public List<Machines> getMachines() { return mMachines; }
+
+    public void addMachine(Machines newMachine) {
+        mMachines.add(newMachine);
+    }
 
     public void updateRoutines(List<Routines> updatedRoutines) {
         mRoutines = updatedRoutines;
@@ -50,5 +57,7 @@ public class Users {
         }
         return null;
     }
+
+
 
 }

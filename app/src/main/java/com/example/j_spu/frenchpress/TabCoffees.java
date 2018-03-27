@@ -2,6 +2,7 @@ package com.example.j_spu.frenchpress;
 
 import android.content.Context;
 import android.os.Handler;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -50,7 +51,9 @@ public class TabCoffees extends Fragment implements Serializable {
         // Find a reference to the {@link ListView} in the layout
         ListView coffeesListView = (ListView) rootView.findViewById(R.id.coffee_list);
 
-        mAdapter = new CoffeesAdapter(getActivity(), MainActivity.mainUser.getCoffees(), getFragmentManager());
+        final ConstraintLayout view = container.getRootView().findViewById(R.id.main_layout);
+
+        mAdapter = new CoffeesAdapter(getActivity(), MainActivity.mainUser.getCoffees(), view, getFragmentManager());
 
         mEmptyStateLinearLayout = (LinearLayout) rootView.findViewById(R.id.empty_view_layout);
 

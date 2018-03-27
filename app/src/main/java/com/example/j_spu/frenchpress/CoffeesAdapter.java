@@ -30,16 +30,34 @@ import android.widget.Toast;
 import java.util.List;
 
 /**
- * Created by j_spu on 2/21/2018.
+ *  Created by j_spu on 2/21/2018.
+ *
+ *  Following copyright is for use of SwipeRevealLayout:
+ *
+ *  The MIT License (MIT)
+ *
+ *  Copyright (c) 2016 Chau Thai
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a copy
+ *  of this software and associated documentation files (the "Software"), to deal
+ *  in the Software without restriction, including without limitation the rights
+ *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *  copies of the Software, and to permit persons to whom the Software is
+ *  furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included in all
+ *  copies or substantial portions of the Software.
  */
 
 public class CoffeesAdapter extends ArrayAdapter<Coffees> {
 
     private static final String LOG_TAG = CoffeesAdapter.class.getSimpleName();
     private InputMethodManager mgr;
+    private ConstraintLayout mainView;
     private android.support.v4.app.FragmentManager fragmentManager;
 
-    public CoffeesAdapter(Activity context, List<Coffees> coffees, android.support.v4.app.FragmentManager originalFragManager) { super(context, 0, coffees);
+    public CoffeesAdapter(Activity context, List<Coffees> coffees, View newMainView, android.support.v4.app.FragmentManager originalFragManager) { super(context, 0, coffees);
+        mainView = (ConstraintLayout) newMainView;
         fragmentManager = originalFragManager;
     }
 
@@ -487,60 +505,66 @@ public class CoffeesAdapter extends ArrayAdapter<Coffees> {
                     }
                 });
 
-                // User Clicks delete
+                // User Clicks cancel
                 TextView cancelText = (TextView) popupView.findViewById(R.id.delete_text);
                 cancelText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        popupWindow.dismiss();
+                    }
+                });
+            }
+        });
 
-                        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                        final ListView coffee_list_view = (ListView) parent.findViewById(R.id.coffee_list);
-                        final View newPopupView = inflater.from(getContext()).inflate(R.layout.delete_confirmation, null);
+        final com.chauthai.swipereveallayout.SwipeRevealLayout swipeLayout = coffeeView.findViewById(R.id.swipe_layout);
+        LinearLayout deleteLayout = (LinearLayout) coffeeView.findViewById(R.id.delete_layout);
+        deleteLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                final ListView coffee_list_view = (ListView) parent.findViewById(R.id.coffee_list);
+                final View deletePopupView = inflater.from(getContext()).inflate(R.layout.delete_confirmation, null);
 
-                        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-                        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-                        boolean focusable = true;
-                        final PopupWindow newPopupWindow = new PopupWindow(newPopupView, width, height, focusable);
-                        newPopupWindow.showAtLocation(coffee_list_view, Gravity.CENTER, 0, 0);
+                int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                boolean focusable = true;
+                final PopupWindow deletePopupWindow = new PopupWindow(deletePopupView, width, height, focusable);
+                deletePopupWindow.showAtLocation(coffee_list_view, Gravity.CENTER, 0, 0);
 
-                        TextView deleteMessage = (TextView) newPopupView.findViewById(R.id.delete_message);
-                        deleteMessage.setText(deleteMessage.getText().toString().replace("[item]", " coffee"));
+                TextView deleteMessage = (TextView) deletePopupView.findViewById(R.id.delete_message);
+                deleteMessage.setText(deleteMessage.getText().toString().replace("[item]", " coffee"));
 
-                        popupView.getForeground().setAlpha(220);
+                mainView.getForeground().setAlpha(220);
 
-                        TextView deleteAction = (TextView) newPopupView.findViewById(R.id.delete_action);
-                        deleteAction.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(getContext(), "Deleted", Toast.LENGTH_SHORT).show();
-                                Utilities.removeCoffee(currentCoffee, MainActivity.mainUser.getCoffees());
-                                Utilities.defaultRoutinesUsedByCoffee(currentCoffee, MainActivity.mainUser.getRoutines());
+                TextView deleteAction = (TextView) deletePopupView.findViewById(R.id.delete_action);
+                deleteAction.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getContext(), "Deleted", Toast.LENGTH_SHORT).show();
+                        Utilities.removeCoffee(currentCoffee, MainActivity.mainUser.getCoffees());
+                        Utilities.defaultRoutinesUsedByCoffee(currentCoffee, MainActivity.mainUser.getRoutines());
 
-                                transaction.replace(R.id.container, new TabCoffees()).commit();
-                                newPopupWindow.dismiss();
-                                popupWindow.dismiss();
-                            }
-                        });
+                        transaction.replace(R.id.container, new TabCoffees()).commit();
+                        deletePopupWindow.dismiss();
+                    }
+                });
 
-                        TextView cancelAction = (TextView) newPopupView.findViewById(R.id.cancel_action);
-                        cancelAction.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                newPopupWindow.dismiss();
-                                popupView.getForeground().setAlpha(0);
-                            }
-                        });
+                TextView cancelAction = (TextView) deletePopupView.findViewById(R.id.cancel_action);
+                cancelAction.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        deletePopupWindow.dismiss();
+                        mainView.getForeground().setAlpha(0);
+                    }
+                });
 
-                        // handles when the pop up window is closed via touch outside of window or
-                        // via back button
-                        newPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-                            @Override
-                            public void onDismiss() {
-                                popupView.getForeground().setAlpha(0);
-                                newPopupWindow.dismiss();
-                            }
-                        });
-
+                // handles when the pop up window is closed via touch outside of window or
+                // via back button
+                deletePopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+                        mainView.getForeground().setAlpha(0);
+                        deletePopupWindow.dismiss();
                     }
                 });
             }

@@ -12,4 +12,5 @@
     <string name="duplicate_Routine_Error">Routine already exists for that day and time.</string>
     <string name="no_Days_Routine_Error">Please select which days you want this routine to repeat.</string>
     <string name="no_Coffees_Routine_Error">You need a coffee created before you can set a routine.</string>
+    <string name="search">SEARCH</string>
 </resources>

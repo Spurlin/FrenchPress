@@ -1,3 +1,5 @@
+
+
 package com.example.j_spu.frenchpress;
 
 import android.app.Activity;
@@ -13,6 +15,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.MenuPopupWindow;
+import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
 import android.transition.Transition;
 import android.util.Log;
@@ -24,6 +27,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -39,7 +43,23 @@ import java.util.List;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 /**
- * Created by j_spu on 2/21/2018.
+ *  Created by j_spu on 2/21/2018.
+ *
+ *  Following copyright is for use of SwipeRevealLayout:
+ *
+ *  The MIT License (MIT)
+ *
+ *  Copyright (c) 2016 Chau Thai
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a copy
+ *  of this software and associated documentation files (the "Software"), to deal
+ *  in the Software without restriction, including without limitation the rights
+ *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *  copies of the Software, and to permit persons to whom the Software is
+ *  furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included in all
+ *  copies or substantial portions of the Software.
  */
 
 public class RoutinesAdapter extends ArrayAdapter<Routines> {
@@ -84,6 +104,7 @@ public class RoutinesAdapter extends ArrayAdapter<Routines> {
         routineCoffee.setText(currentRoutine.getCoffee().getName());
 
         final CardView currentCard = (CardView) routinesView.findViewById(R.id.routine_card);
+        currentCard.getForeground().setAlpha((currentRoutine.getState() ? 0: 120));
         currentCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -211,58 +232,12 @@ public class RoutinesAdapter extends ArrayAdapter<Routines> {
                     }
                 });
 
-                TextView deleteText = (TextView) popupView.findViewById(R.id.delete_text);
-                deleteText.setText("Delete");
-                deleteText.setOnClickListener(new View.OnClickListener() {
+                TextView cancelText = (TextView) popupView.findViewById(R.id.delete_text);
+                cancelText.setText("Cancel");
+                cancelText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                        final ListView coffee_list_view = (ListView) parent.findViewById(R.id.routine_list);
-                        final View newPopupView = inflater.from(getContext()).inflate(R.layout.delete_confirmation, null);
-
-                        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-                        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-                        boolean focusable = true;
-                        final PopupWindow newPopupWindow = new PopupWindow(newPopupView, width, height, focusable);
-                        newPopupWindow.showAtLocation(coffee_list_view, Gravity.CENTER, 0, 0);
-
-                        TextView deleteMessage = (TextView) newPopupView.findViewById(R.id.delete_message);
-                        deleteMessage.setText(deleteMessage.getText().toString().replace("[item]", " routine"));
-
-                        popupView.getForeground().setAlpha(220);
-
-                        TextView deleteAction = (TextView) newPopupView.findViewById(R.id.delete_action);
-                        deleteAction.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(getContext(), "Deleted", Toast.LENGTH_SHORT).show();
-                                Utilities.removeRoutine(currentRoutine, MainActivity.mainUser.getRoutines());
-
-                                transaction.replace(R.id.container, new TabRoutines()).commit();
-                                newPopupWindow.dismiss();
-                                popupWindow.dismiss();
-                            }
-                        });
-
-                        TextView cancelAction = (TextView) newPopupView.findViewById(R.id.cancel_action);
-                        cancelAction.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                newPopupWindow.dismiss();
-                                popupView.getForeground().setAlpha(0);
-                            }
-                        });
-
-                        // handles when the pop up window is closed via touch outside of window or
-                        // via back button
-                        newPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-                            @Override
-                            public void onDismiss() {
-                                popupView.getForeground().setAlpha(0);
-                                newPopupWindow.dismiss();
-                            }
-                        });
+                        popupWindow.dismiss();
                     }
                 });
 
@@ -273,6 +248,101 @@ public class RoutinesAdapter extends ArrayAdapter<Routines> {
                     public void onDismiss() {
                         mainView.getForeground().setAlpha(0);
                         popupWindow.dismiss();
+                    }
+                });
+            }
+        });
+
+        final com.chauthai.swipereveallayout.SwipeRevealLayout swipeLayout = routinesView.findViewById(R.id.swipe_layout);
+        final ImageView enableImage = (ImageView) routinesView.findViewById(R.id.alarm_on);
+        final ImageView disableImage = (ImageView) routinesView.findViewById(R.id.alarm_off);
+        final TextView alarmText = (TextView) routinesView.findViewById(R.id.alarm_text);
+
+        // if the current routine is off
+        if (!currentRoutine.getState()) {
+            enableImage.setVisibility(View.VISIBLE);
+            disableImage.setVisibility(View.GONE);
+            alarmText.setText("Enable");
+        } else {
+            enableImage.setVisibility(View.GONE);
+            disableImage.setVisibility(View.VISIBLE);
+            alarmText.setText("Disable");
+        }
+
+        LinearLayout silentLayout = (LinearLayout) routinesView.findViewById(R.id.snooze_layout);
+        silentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                currentRoutine.updateState();
+
+                // if the alarm is enabled, state is true
+                if (currentRoutine.getState()) {
+                    Toast.makeText(getContext(), "Alarm is is turned on.", Toast.LENGTH_SHORT).show();
+                    enableImage.setVisibility(View.GONE);
+                    disableImage.setVisibility(View.VISIBLE);
+                    alarmText.setText("Disable");
+                } else {
+                    Toast.makeText(getContext(), "Alarm is is off until you enable it.", Toast.LENGTH_SHORT).show();
+                    enableImage.setVisibility(View.VISIBLE);
+                    disableImage.setVisibility(View.GONE);
+                    alarmText.setText("Enable");
+                }
+
+                // updates the foreground shade effect based on if it is enabled or disabled
+                currentCard.getForeground().setAlpha((currentRoutine.getState() ? 0: 120));
+
+                swipeLayout.close(false);
+            }
+        });
+
+        LinearLayout deleteLayout = (LinearLayout) routinesView.findViewById(R.id.delete_layout);
+        deleteLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                final ListView routine_list_layout = (ListView) parent.findViewById(R.id.routine_list);
+                final View deletePopupView = inflater.from(getContext()).inflate(R.layout.delete_confirmation, null);
+
+                int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                boolean focusable = true;
+                final PopupWindow deletePopupWindow = new PopupWindow(deletePopupView, width, height, focusable);
+                deletePopupWindow.showAtLocation(routine_list_layout, Gravity.CENTER, 0, 0);
+
+                TextView deleteMessage = (TextView) deletePopupView.findViewById(R.id.delete_message);
+                deleteMessage.setText(deleteMessage.getText().toString().replace("[item]", " routine"));
+
+                mainView.getForeground().setAlpha(220);
+
+                TextView deleteAction = (TextView) deletePopupView.findViewById(R.id.delete_action);
+                deleteAction.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getContext(), "Deleted", Toast.LENGTH_SHORT).show();
+                        Utilities.removeRoutine(currentRoutine, MainActivity.mainUser.getRoutines());
+
+                        transaction.replace(R.id.container, new TabRoutines()).commit();
+                        deletePopupWindow.dismiss();
+                    }
+                });
+
+                TextView cancelAction = (TextView) deletePopupView.findViewById(R.id.cancel_action);
+                cancelAction.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        deletePopupWindow.dismiss();
+                        mainView.getForeground().setAlpha(0);
+                    }
+                });
+
+                // handles when the pop up window is closed via touch outside of window or
+                // via back button
+                deletePopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+                        mainView.getForeground().setAlpha(0);
+                        deletePopupWindow.dismiss();
                     }
                 });
             }

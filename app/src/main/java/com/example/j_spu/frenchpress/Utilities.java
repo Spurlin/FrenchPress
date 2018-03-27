@@ -1,10 +1,21 @@
 package com.example.j_spu.frenchpress;
 
+import android.app.Activity;
+import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
+
+import com.google.android.gms.nearby.Nearby;
+import com.google.android.gms.nearby.connection.DiscoveryOptions;
+import com.google.android.gms.nearby.connection.EndpointDiscoveryCallback;
+import com.google.android.gms.nearby.connection.Strategy;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -343,5 +354,32 @@ public class Utilities {
             }
 
         return dayButtons;
+    }
+
+    /**
+     * This is used to start discovery as per a nearby connection
+     * @param SERVICE_ID
+     * @param context
+     */
+    public static void startDiscovery(String SERVICE_ID, final Context context, final EndpointDiscoveryCallback mEndpointDiscoveryCallback) {
+        Nearby.getConnectionsClient(context).startDiscovery(
+                SERVICE_ID, mEndpointDiscoveryCallback,
+                new DiscoveryOptions(Strategy.P2P_STAR))
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(context, "We're discovering!", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(context, "We are unable to start discovery.!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    public static void stopDiscovery(final Context context) {
+        Nearby.getConnectionsClient(context).stopDiscovery();
     }
 }
