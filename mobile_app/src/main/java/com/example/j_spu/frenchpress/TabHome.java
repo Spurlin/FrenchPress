@@ -42,6 +42,9 @@ public class TabHome extends Fragment implements Serializable {
     private PopupWindow popupWindow;
     private DrawerLayout mainLayout;
     private int tempInt;
+    private com.github.lzyzsd.circleprogress.ArcProgress waterLevel;
+    private com.github.lzyzsd.circleprogress.ArcProgress coffeeLevel;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,6 +52,10 @@ public class TabHome extends Fragment implements Serializable {
 
         final View rootView = inflater.inflate(R.layout.tab_home, container, false);
         super.onCreate(savedInstanceState);
+
+        // The progress bars that show the water and coffee levels
+        waterLevel = rootView.findViewById(R.id.water_level_progress);
+        coffeeLevel = rootView.findViewById(R.id.coffee_level_progress);
 
         // set up the view with the retrieved data
 //        setView(rootView, container);
